@@ -21,8 +21,8 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('CineFlutter'),
-          backgroundColor: const Color.fromARGB(255, 192, 31, 171),
+          title: const Text('CINEFlutter'),
+          backgroundColor: const Color.fromARGB(78, 117, 215, 1),
         ),
 
         body: ListView.builder(
@@ -37,7 +37,7 @@ class _MainAppState extends State<MainApp> {
             return ListTile(
               leading: const Icon(
                 Icons.movie,
-                color: Color.fromARGB(255, 165, 48, 106),
+                color: Color.fromARGB(255, 53, 145, 101),
               ),
 
               title: Text(filme.titulo),
