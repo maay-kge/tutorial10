@@ -34,10 +34,12 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
   // --- 1. Valores Padrão (para reset) ---
   static final DateTime _dataPadrao = DateTime.now();
   static const TimeOfDay _horarioPadrao = TimeOfDay(hour: 19, minute: 0);
+  static const String _tipoPadrao = 'Aniversário';
 
   // --- 2. Variáveis de Estado ---
   late DateTime _dataSelecionada;
   late TimeOfDay _horarioSelecionado;
+  late String _tipoEventoSelecionado;
 
   @override
   void initState() {
@@ -49,6 +51,8 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
     setState(() {
       _dataSelecionada = _dataPadrao;
       _horarioSelecionado = _horarioPadrao;
+      _tipoEventoSelecionado = _tipoPadrao;
+
     });
     print('[DEBUG] Formulario resetado para os valores padrão.');
   }
@@ -61,6 +65,7 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
       'Data: ${_horarioSelecionado.day}/${_dataSelecionada.month}/${_dataSelecionada.year}',
     );
     print('Horário: ${_horarioSelecionado.format(context)}');
+    print('Tipo de Evento: $_tipoEventoSelecionado');
     print('==================================');
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -139,6 +144,39 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
                     ),
                   ),
                 ],
+              ),
+              const Divider(height: 32),
+
+              //  --- 3. Menu (DropdownButton) ---
+              Text(
+                'Tipo de Evento',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
+              DropdownButtonFormField<String>(
+                initialValue: _tipoEventoSelecionado,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                ),
+                items: ['Aniversário', 'Casamento', 'Corporativo', 'Outro']
+                  .map(
+                    (tipo) => DropdownMenuItem(value: tipo, child: Text(tipo)),
+                  )
+                  .toList(),
+                onChanged: (novoValor) {
+                  if (novoValor != null) {
+                    setState(() {
+                      _tipoEventoSelecionado = novoValor;
+                    });
+                    print(
+                      '[DEBUG - Menu] Tipo de evento selecionado: $novoValor',
+                    );
+                  }
+                },
               ),
               const Divider(height: 32),
           ],
