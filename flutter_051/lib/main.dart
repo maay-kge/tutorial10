@@ -225,7 +225,36 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
               'Visibilidade do Evento',
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            
+
+            RadioGroup<Visibilidade>(
+              groupValue: _visibilidadeSelecionada,
+              onChanged: (Visibilidade? visibilidade) {
+                setState(() {
+                  _visibilidadeSelecionada = visibilidade!;
+                  print('[DEBUG - Radio] Visibilidade: $visibilidade');
+                });
+              },
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text('Público'),
+                    leading: Radio<Visibilidade>(value: Visibilidade.public),
+
+                  ),
+
+                  ListTile(
+                    title: Text('Privado'),
+                    leading: Radio<Visibilidade>(value: Visibilidade.private),
+                  ),
+
+                  ListTile(
+                    title: Text('Apenas Convidados'),
+                    leading: Radio<Visibilidade>(value: Visibilidade.vip),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 32),
           ],
         ),
       ),
